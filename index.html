@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Open MyApp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: #f5f5f5;
+    }
+    .container {
+      text-align: center;
+    }
+    button {
+      background: #007aff;
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #005bbb;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Open MyApp</h2>
+    <p>If you have the app installed, it will open. Otherwise, you’ll be redirected to the App Store.</p>
+    <button onclick="openApp()">Open App</button>
+  </div>
+
+  <script>
+    function openApp() {
+      var now = Date.now();
+      // Try to open the app with custom URL scheme
+      window.location = "idnapp://home";
+
+      // If the app is not installed, redirect to App Store after 1.5s
+      setTimeout(function() {
+        if (Date.now() - now < 2000) {
+          window.location = "https://apps.apple.com/app/1035533846"; 
+        }
+      }, 1500);
+    }
+
+    // Auto-try when user lands on page
+    window.onload = openApp;
+  </script>
+</body>
+</html>
