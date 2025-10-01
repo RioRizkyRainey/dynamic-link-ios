@@ -40,20 +40,25 @@
 
   <script>
     function openApp() {
-      var now = Date.now();
-      // Try to open the app with custom URL scheme
-      window.location = "idnapp://home";
+      const now = Date.now();
+      const appUrl = "idnapp://home";
+      const appStoreUrl = "https://apps.apple.com/app/1035533846";
 
-      // If the app is not installed, redirect to App Store after 1.5s
+      // Try to open the app
+      window.location = appUrl;
+
+      // Fallback if app is not installed
       setTimeout(function() {
-        if (Date.now() - now < 2000) {
-          window.location = "https://apps.apple.com/app/1035533846"; 
+        // Only redirect if user is still in browser tab
+        if (!document.hidden && (Date.now() - now < 2000)) {
+          window.location = appStoreUrl;
         }
       }, 1500);
     }
 
-    // Auto-try when user lands on page
+    // Auto-try on page load
     window.onload = openApp;
   </script>
 </body>
 </html>
+
