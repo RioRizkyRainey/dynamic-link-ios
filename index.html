@@ -20,13 +20,33 @@
         <h2>Choose how to open this link</h2>
         <a href="https://apps.apple.com/app/1035533846" class="button primary">Open in App</a>
         https://apps.apple.com/app/1035533846
-
         <div class="ua-box">
             <strong>Your User-Agent:</strong>
             <p id="ua"></p>
         </div>
     </div>
 
+    <script>
+      function openApp() {
+        const now = Date.now();
+        const appUrl = "idnapp://home";
+        const appStoreUrl = "https://apps.apple.com/app/1035533846";
+
+        // Try to open the app
+        window.location = appUrl;
+
+        // Fallback if app is not installed
+        setTimeout(function() {
+          // Only redirect if user is still in browser tab
+          if (!document.hidden && (Date.now() - now < 2000)) {
+            window.location = appStoreUrl;
+          }
+        }, 1500);
+      }
+
+      // Auto-try on page load
+      window.onload = openApp;
+    </script>
     <script>
         document.getElementById("ua").textContent = navigator.userAgent;
     </script>
